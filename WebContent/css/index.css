@@ -68,9 +68,77 @@ body, html {
 }
 
 .card {
-        margin: 0 auto;
+		margin: auto;
+		width: 25rem !important;
         float: none; 
-        margin-bottom: 10px;
-        margin-top: 20px;
         border: 1px solid black;
+        box-shadow: 0 4px 8px 0 rgba(130,137,150,0.8);
+       	transition: 0.3s;
+    	border-radius: 5px;
+    	background : #b7b9bc;
+        
+}
+
+.card-body{
+	font-family: 'Muli', sans-serif;
+	text-align : center;
+	
+}
+
+.table{
+	margin : 5px 15px;
+	border-top : #b7b9bc;
+}
+
+.tableData{
+	padding : 5px 20px 5px 20px;
+	
+}
+
+#message{
+	padding : 2px 5px 2px 5px;
+	border-style : groove;
+	border-color : grey;
+	border-radius : 5px;
+	display : table-cell;
+	text-align : center;
+	
+}
+
+#redMessage{
+	padding : 2px 5px 2px 5px;
+	border-style : groove;
+	border-color : red;
+	border-radius : 5px;
+	display : table-cell;
+	text-align : center;
+	
+}
+
+footer{
+    left: 0;
+    bottom: 0;
+    height : 50px;
+    width: 100%;
+    background-color: #e8e2de;
+    color: white;
+}
+
+.footerText{
+	
+	font-family: 'Muli', sans-serif;
+	color: #12374f;
+	font-size: 20px;
+}
+
+.table td, .table th{
+	border-top : #b7b9bc;
+}
+
+.tablei{
+	
+}
+
+.tableDatai{
+	
 }

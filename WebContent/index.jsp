@@ -48,11 +48,15 @@
 		</div>
 	</div>
 
-
+<hr>
 	<div id="data"></div>
 
 
 	<div id="fav"></div>
+	
+	<footer>
+		<p class = "footerText"> Copyright@WeatherBucketList </p>
+	</footer>
 
 	<!-- bootstrap javascript -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

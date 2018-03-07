@@ -13,11 +13,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-@WebServlet("/deletejson")
-public class DeleteJson extends HttpServlet {
+@WebServlet("/deleteValue")
+public class RemoveFavourite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public DeleteJson() {
+    public RemoveFavourite() {
         super();
     }
 
@@ -29,14 +29,15 @@ public class DeleteJson extends HttpServlet {
 		int index = Integer.parseInt(value);
 		JSONParser parser = new JSONParser(); 
   	JSONArray array = new JSONArray();
+  	String PATH = "/home/sapient/Documents/favorites.json";
   	//reading the json file
   	FileWriter jsonFile = null;
 		try {
-			array = (JSONArray)parser.parse(new FileReader("/home/sapient/Documents/favorites.json"));
+			array = (JSONArray)parser.parse(new FileReader(PATH));
 			array.remove(index);
-			out.print("Successfully removed");
+			out.print("Successfully removed the city");
 			//writing the array to the same file
-			jsonFile =  new FileWriter("/home/sapient/Documents/favorites.json");
+			jsonFile =  new FileWriter(PATH);
 			jsonFile.write(array.toString());
 			
 		} catch (ParseException e) {

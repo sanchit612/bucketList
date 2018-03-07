@@ -18,10 +18,10 @@ import org.json.simple.parser.ParseException;
 
 
 @WebServlet("/favorite")
-public class ParseJson extends HttpServlet {
+public class AddFavourite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//array of json objects
-    public ParseJson() {
+    public AddFavourite() {
         super();
     }
 
@@ -30,16 +30,15 @@ public class ParseJson extends HttpServlet {
 		JSONObject jsonObj = new JSONObject();
 		JSONArray jarray = new JSONArray();
 		JSONParser parser = new JSONParser();
-			
 		//setting response type
 		response.setContentType("application/json");
 		String city = request.getParameter("city");
 		PrintWriter out = response.getWriter();
 		//shows the city added
-		out.print("Thank you for adding <b>"+city+"</b> to your favorite locations");
 		String country = request.getParameter("country");
 		String temperature = request.getParameter("temperature");
 		String conditions = request.getParameter("conditions");
+		String description = request.getParameter("description");
 		String longitude = request.getParameter("longitude");
 		String latitude = request.getParameter("latitude");
 		//storing key value pairs getting from GET
@@ -47,15 +46,17 @@ public class ParseJson extends HttpServlet {
 		jsonObj.put("country", country);
 		jsonObj.put("temperature", temperature);
 		jsonObj.put("conditions", conditions);
+		jsonObj.put("description", description);
 		jsonObj.put("longitude", longitude);
 		jsonObj.put("latitude", latitude);
+		String PATH = "/home/sapient/Documents/favorites.json";
 		
-		File f = new File("/home/sapient/Documents/favorites.json");
+		File f = new File(PATH);
 		if(f.exists()) {
 			//wont happen ever because we checked the conditions already above
 			try {
 				//if array exists take the values else make a new file
-				jarray = (JSONArray)parser.parse(new FileReader("/home/sapient/Documents/favorites.json"));
+				jarray = (JSONArray)parser.parse(new FileReader(PATH));
 			} catch (ParseException e) {
 				//wont reach here ever
 			}
@@ -63,11 +64,12 @@ public class ParseJson extends HttpServlet {
 		
 		//if length exceeds 10, warning message is issued
 		if(jarray.size() < 10) {
+			out.print("<hr><hr><center><p id = \"message\">"+city+" has been added to your favorite locations!!</p></center><hr><hr>");
 			jarray.add(jsonObj);
 			FileWriter jsonFile=null;
 			try {
 				//over writing the previous file
-				jsonFile =  new FileWriter("/home/sapient/Documents/favorites.json");
+				jsonFile =  new FileWriter(PATH);
 				jsonFile.write(jarray.toString());
 				System.out.println(jsonObj.toString());
 			}catch(Exception e){
@@ -78,6 +80,7 @@ public class ParseJson extends HttpServlet {
 		}
 		
 		else {
+			out.print("<hr><hr><center><p id = \"redMessage\"> Your Bucket List is full!!</p></center><hr><hr>");
 			System.out.println("You have exceeded your limit");
 		}
 		

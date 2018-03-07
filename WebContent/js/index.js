@@ -1,5 +1,5 @@
 //global variables which shall be initialized in functions
-var cityName, countryName, temp, conditions, longitude, latitude;
+var cityName, countryName, temp, conditions, description, longitude, latitude;
 
 function getData() {
 	// getting value of the field in var name
@@ -15,25 +15,28 @@ function getData() {
 			countryName = result.sys.country;
 			temp = result.main.temp;
 			conditions = result.weather[0].main;
+			description = result.weather[0].description;
 			longitude = result.coord.lon;
 			latitude = result.coord.lat;
 			// html for shoeing result
-			var html = "<div id = \"card\" class=\"card\" style=\"width: 20rem;\">"
+			var html = "<div id = \"card\" class=\"card\">"
 					+ "<div class=\"card-body\">"
 					+ "<h4 class=\"card-title\">"
 					+ cityName
 					+ ", "
 					+ countryName
-					+ "</h5>"
-					+ "<p class=\"card-text\">Temperature : "
+					+ "</h5> <hr>"
+					+ "<center><table class = \"table\"><tr><td class = \"tableData\"><b>Temperature</b></td><td class = \"tableData\">"
 					+ temp
-					+ "<br>Conditions : "
+					+ "</td></tr><tr><td class = \"tableData\"><b>Conditions</b></td><td class = \"tableData\">"
 					+ conditions
-					+ "<br>Longitude : "
+					+ "</td></tr><tr><td class = \"tableData\"><b>Description</b></td><td class = \"tableData\">"
+					+ description
+					+ "</td></tr><tr><td class = \"tableData\"><b>Longitude</b></td><td class = \"tableData\">"
 					+ longitude
-					+ "<br>Latitude : "
+					+ "</td></tr><tr><td class = \"tableData\"><b>Latitude</b></td><td class = \"tableData\">"
 					+ latitude
-					+ "</p>"
+					+ "</td></tr></table></center><hr>"
 					+ "<button class=\"btn btn-primary\" onclick = \"addFav()\" type = \"button\">Add to favorites</button>"
 					+ "</div>" + "</div>";
 
@@ -49,6 +52,7 @@ function getData() {
 
 function addFav() {
 	var xmlhttp = new XMLHttpRequest();
+	
 
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -57,9 +61,10 @@ function addFav() {
 	};
 	// values to be sent to servlet
 	var values = "city=" + cityName + "&country=" + countryName + "&temperature="
-			+ temp + "&conditions=" + conditions + "&longitude="
+			+ temp + "&conditions=" + conditions + "&description=" + description + "&longitude="
 			+ longitude + "&latitude=" + latitude;
-	xmlhttp.open('GET', "http://localhost:8080/bucketList/favorite?" + values,true);
+	var PATH = "http://localhost:8080/bucketList/favorite?";
+	xmlhttp.open('GET', PATH + values,true);
 	xmlhttp.send();
 }
 
@@ -73,9 +78,10 @@ function getFavourites() {
 	};
 	// values to be sent to servlet
 	var values = "city=" + cityName + "&country=" + countryName + "&temperature="
-			+ temp + "&conditions=" + conditions + "&longitude="
+			+ temp + "&conditions=" + conditions + "&description=" + description + "&longitude="
 			+ longitude + "&latitude=" + latitude;
-	xmlhttp.open('GET', "http://localhost:8080/bucketList/readjson", true);
+	var PATH = "http://localhost:8080/bucketList/viewSaved";
+	xmlhttp.open('GET', PATH, true);
 	xmlhttp.send();
 }
 
@@ -88,7 +94,8 @@ function removeFav(i){
 			document.getElementById("fav").innerHTML = xmlhttp.responseText;
 		}
 	};
+	var PATH = "http://localhost:8080/bucketList/deleteValue?value=";
 	//passing the value of the index
-	xmlhttp.open('POST', "http://localhost:8080/bucketList/deletejson?value="+i, true);
+	xmlhttp.open('POST', PATH + i, true);
 	xmlhttp.send();
 }
