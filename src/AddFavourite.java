@@ -63,7 +63,7 @@ public class AddFavourite extends HttpServlet {
 		}
 		
 		//if length exceeds 10, warning message is issued
-		if(jarray.size() < 10) {
+		if(jarray.size() < 10 && !jarray.contains(jsonObj)) {
 			out.print("<hr><hr><center><p id = \"message\">"+city+" has been added to your favorite locations!!</p></center><hr><hr>");
 			jarray.add(jsonObj);
 			FileWriter jsonFile=null;
@@ -79,9 +79,14 @@ public class AddFavourite extends HttpServlet {
 			}
 		}
 		
-		else {
+		else if(jarray.size() >= 10) {
 			out.print("<hr><hr><center><p id = \"redMessage\"> Your Bucket List is full!!</p></center><hr><hr>");
 			System.out.println("You have exceeded your limit");
+		}
+		else
+		{
+			out.print("<hr><hr><center><p id = \"redMessage\"> City already in favourites!!</p></center><hr><hr>");
+			System.out.println("City already in favourites");
 		}
 		
 	}

@@ -35,7 +35,7 @@ public class RemoveFavourite extends HttpServlet {
 		try {
 			array = (JSONArray)parser.parse(new FileReader(PATH));
 			array.remove(index);
-			out.print("Successfully removed the city");
+			out.print("<center><p id = \"message\"> Successfully removed the city!!</p></center><hr><hr>");
 			//writing the array to the same file
 			jsonFile =  new FileWriter(PATH);
 			jsonFile.write(array.toString());
